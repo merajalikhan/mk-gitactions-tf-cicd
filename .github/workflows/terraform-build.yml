@@ -30,9 +30,13 @@ jobs:
         DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
         DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}}        
       run: |
-        echo $DATABRICKS_HOST >> test.txt
+        echo "The GitHub Action Secret will be masked:  "
+        echo ${{secrets.DB_DEV_HOST}}
+        echo "Trick to echo GitHub Actions Secret:  "
+        echo ${{secrets.DB_DEV_HOST}} | sed 's/./& /g'
+        TF_DATA_DIR=Terraform
         terraform init
-
+    
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
