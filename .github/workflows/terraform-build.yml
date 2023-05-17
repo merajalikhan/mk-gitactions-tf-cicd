@@ -39,7 +39,13 @@ jobs:
       run: terraform init
     
     - name: Plan Terraform
-      run: terraform plan
+      id: plan
+      run: | 
+        terraform plan -input=false -out tf.plan
+      
+      env:
+          DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
+          DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
 
 
        
