@@ -11,7 +11,7 @@ terraform {
     organization = "mk-test-organisation"
 
     workspaces {
-      name = "mk-gitactions-tf-cicd"
+      name = { prefix = "mk-git-actions-tf-api-" } #"mk-gitactions-tf-cicd"
     }
     
   }
