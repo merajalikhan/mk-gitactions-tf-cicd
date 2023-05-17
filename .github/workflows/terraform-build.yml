@@ -10,8 +10,10 @@ permissions:
   contents: read
 
 env:
-    DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
-    DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
+    #DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
+    #DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
+    TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
+    TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
 
 jobs:  
   build-and-test:
@@ -48,15 +50,16 @@ jobs:
           token = ${{ secrets.DB_DEV_PAT }} 
           jobs-api-version = 2.1 
           EOF 
+          
     
     - name: Plan Terraform
       id: plan
       run: | 
         terraform plan -input=false 
       
-      env:
-          DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
-          DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
+      env:                  
+          TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
+          TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
 
 
        
