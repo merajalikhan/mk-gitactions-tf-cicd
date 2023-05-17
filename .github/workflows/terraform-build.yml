@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+env:
+    DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
+    DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
+
 jobs:  
   build-and-test:
     name: 'Build and Test'
@@ -24,26 +28,23 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3    
       
-    - name: Terraform Init
-      #env:
-      #  DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
-      #  DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}}        
-      run: |       
-        export DATABRICKS_HOST= "https://adb-1710922579126448.8.azuredatabricks.net/"
-        export DATABRICKS_TOKEN= "dapid24a84b27054a5fccabc962278928be0-3"
-        terraform init
+    - name: Prepare Terraform
+      uses: hashicorp/setup-terraform@v1
+      with :
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: Init Terraform
+      run: terraform init
+
+
+       
+
+
+
+
     
-
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: tf-files
-        path: |
-          Terraform
-        retention-days: 2
-
          
       
       
