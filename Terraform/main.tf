@@ -17,7 +17,10 @@ terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
     organization = "mk-test-organisation"
-    workspaces { prefix = "mk-git-actions-tf-api-" }
+    workspaces { 
+      #prefix = "mk-git-actions-tf-api-" 
+      name="mk-git-actions-tf-api-dev"
+      }
   }
 }
 
