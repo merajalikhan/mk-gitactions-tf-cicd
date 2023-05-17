@@ -13,6 +13,7 @@ terraform {
     workspaces {
       name = "mk-gitactions-tf-cicd"
     }
+    
   }
 
   
@@ -24,7 +25,8 @@ terraform {
 }
 
 provider "databricks" {
-  
+  host =   var.databricks_host
+  token =  var.databricks_token
 }
 
 

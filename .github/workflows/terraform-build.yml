@@ -9,34 +9,57 @@ on:
 permissions:
   contents: read
 
+env: 
+    TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
+    TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
+
 jobs:  
   build-and-test:
     name: 'Build and Test'
     runs-on: ubuntu-latest
-    #environment: development
+    environment: dev
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
+        working-directory: ./Terraform
      
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3    
+      
+    - name: Prepare Terraform
+      uses: hashicorp/setup-terraform@v1
+      with :
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: Init Terraform
+      run: terraform init
     
-    - name: Unit Test
-      run: |
-        echo "unit testing goes here"
+    - name: Plan Terraform
+      id: plan
+      run: | 
+        terraform plan -input=false      
+    
+     
+    - name: Apply Terraform
+      id: apply      
+      run: terraform apply -auto-approve 
+      
+          
+      
 
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: tf-files
-        path: |
-          Terraform
-        retention-days: 2
 
+
+
+       
+
+
+
+
+    
          
       
       
