@@ -14,11 +14,20 @@ terraform {
 #    }    
   #}
   
-  backend "remote" {
+ /* backend "remote" {
     hostname     = "app.terraform.io"
     organization = "mk-test-organisation"
     workspaces { prefix = "mk-git-actions-tf-api-" }
   }
+  */
+   cloud {
+    organization = "mk-test-organisation"
+
+    workspaces {
+      name = "mk-test-api-ws"
+    }
+  }
+
 }
 
 provider "databricks" {
@@ -31,4 +40,5 @@ provider "databricks" {
 data "databricks_cluster" "my_cluster" {
   cluster_name = databricks_cluster.shared_autoscaling.cluster_name #var.cluster_name
   } 
+
 
