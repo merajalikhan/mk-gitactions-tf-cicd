@@ -18,8 +18,8 @@ terraform {
     hostname     = "app.terraform.io"
     organization = "mk-test-organisation"
     workspaces { 
-      #prefix = "mk-git-actions-tf-api-" 
-      name="mk-git-actions-tf-api-dev"
+      prefix = "mk-git-actions-tf-api-dev" 
+      #name="mk-git-actions-tf-api-dev"
       }
   }
 }
