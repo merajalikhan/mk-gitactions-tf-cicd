@@ -9,18 +9,15 @@ on:
 permissions:
   contents: read
 
-env:
-    #DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
-    #DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
-
-    TF_VAR_databricks_host: ${{ secrets.DB_QA_HOST }}
-    TF_VAR_databricks_token: ${{ secrets.DB_QA_PAT }}
+env: 
+    TF_VAR_databricks_host: ${{ secrets.DB_DEV_PAT }}
+    TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
 
 jobs:  
   build-and-test:
     name: 'Build and Test'
     runs-on: ubuntu-latest
-    environment: staging
+    environment: dev
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
