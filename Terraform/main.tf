@@ -33,3 +33,4 @@ provider "databricks" {
 data "databricks_cluster" "my_cluster" {
   cluster_name = databricks_cluster.shared_autoscaling.cluster_name #var.cluster_name
   } 
+  
