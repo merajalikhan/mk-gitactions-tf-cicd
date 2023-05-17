@@ -9,9 +9,7 @@ on:
 permissions:
   contents: read
 
-env: 
-    TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
-    TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}    
+   
 
 jobs:  
   build-and-test:
@@ -43,6 +41,10 @@ jobs:
     
     - name: Plan Terraform
       id: plan
+      env: 
+        TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
+        TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }} 
+        
       run: | 
         export TF_WORKSPACE="dev"
         
