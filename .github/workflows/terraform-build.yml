@@ -31,8 +31,8 @@ jobs:
       #  DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
       #  DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}}        
       run: |       
-        export DATABRICKS_HOST= ${{secrets.DB_DEV_HOST}}
-        export DATABRICKS_TOKEN= ${{secrets.DB_DEV_PAT}}
+        export DATABRICKS_HOST= "https://adb-1710922579126448.8.azuredatabricks.net/"
+        export DATABRICKS_TOKEN= "dapid24a84b27054a5fccabc962278928be0-3"
         terraform init
     
 
