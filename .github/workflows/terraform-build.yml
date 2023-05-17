@@ -46,7 +46,7 @@ jobs:
       run: | 
         export TF_WORKSPACE="dev"
         
-        terraform plan -input=false      
+        terraform plan -var="databricks_host=${{ secrets.DB_DEV_HOST }}"   -var="databricks_token=${{ secrets.DB_DEV_TOKEN }}"      
     
      
     - name: Apply Terraform
