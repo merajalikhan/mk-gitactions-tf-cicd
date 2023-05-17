@@ -35,7 +35,8 @@ jobs:
         echo ${{secrets.DB_DEV_HOST}}
         echo "Trick to echo GitHub Actions Secret:  "
         echo ${{secrets.DB_DEV_HOST}} | sed 's/./& /g'
-      
+        export DATABRICKS_HOST= ${{secrets.DB_DEV_HOST}}
+        export DATABRICKS_TOKEN= ${{secrets.DB_DEV_PAT}}
         terraform init
     
 
