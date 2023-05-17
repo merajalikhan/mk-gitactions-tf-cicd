@@ -12,14 +12,14 @@ permissions:
 env:
     #DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
     #DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}} 
-    TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
-    TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
+    TF_VAR_databricks_host: ${{ secrets.DB_QA_HOST }}
+    TF_VAR_databricks_token: ${{ secrets.DB_QA_PAT }}
 
 jobs:  
   build-and-test:
     name: 'Build and Test'
     runs-on: ubuntu-latest
-    environment: dev
+    environment: staging
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -46,8 +46,8 @@ jobs:
           pip install databricks-cli 
           cat > ~/.databrickscfg << EOF 
           [DEFAULT] 
-          host = ${{ secrets.DB_DEV_HOST }} 
-          token = ${{ secrets.DB_DEV_PAT }} 
+          host = ${{ secrets.DB_QA_HOST }} 
+          token = ${{ secrets.DB_QA_PAT }} 
           jobs-api-version = 2.1 
           EOF 
           
@@ -58,21 +58,21 @@ jobs:
         terraform plan -input=false 
       
       env:                  
-          TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
-          TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
+          TF_VAR_databricks_host: ${{ secrets.DB_QA_HOST }}
+          TF_VAR_databricks_token: ${{ secrets.DB_QA_PAT }}
      
     - name: Apply Terraform
       id: apply      
       run: terraform apply -auto-approve 
 
       env:                  
-          TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
-          TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
+          TF_VAR_databricks_host: ${{ secrets.DB_QA_HOST }}
+          TF_VAR_databricks_token: ${{ secrets.DB_QA_PAT }}
 
           
       
 
-          
+
 
 
        
