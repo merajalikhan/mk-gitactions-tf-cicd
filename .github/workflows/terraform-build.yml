@@ -1,4 +1,4 @@
-name: 'Databrick Deployment Workflow'
+name: 'Build Databricks Deployment Workflow'
 
 on:
   #push:
@@ -28,7 +28,7 @@ jobs:
     - name: Unit Test
       run: |
         echo "unit testing goes here"
-        
+
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
       with:
