@@ -24,10 +24,15 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout repository
       uses: actions/checkout@v3
-    
-    - name: Unit Test
+      
+    - name: Terraform Init
+      env:
+        DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
+        DATABRICKS_TOKEN: ${{secrets.DB_DEV_PAT}}        
       run: |
-        echo "unit testing goes here"
+        echo $DATABRICKS_HOST >> test.txt
+        terraform init
+
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
