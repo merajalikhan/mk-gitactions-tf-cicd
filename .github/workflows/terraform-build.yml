@@ -38,7 +38,7 @@ jobs:
     - name: Init Terraform
       run: |
         export TF_WORKSPACE="dev"
-        export TF_VAR_databricks_host= ${{ secrets.DB_DEV_HOST }}
+        export TF_VAR_databricks_host= "${{ secrets.DB_DEV_HOST }}"
         terraform init
     
     - name: Plan Terraform
