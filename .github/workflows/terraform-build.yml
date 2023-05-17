@@ -35,16 +35,12 @@ jobs:
 
     - name: Init Terraform
       run: |
-        export DATABRICKS_HOST=$DATABRICKS_HOST 
-        export DATABRICKS_TOKEN=$DATABRICKS_TOKEN 
+        export DATABRICKS_HOST="https://adb-1710922579126448.8.azuredatabricks.net/"
+        export DATABRICKS_TOKEN="dapid24a84b27054a5fccabc962278928be0-3" 
         export TF_WORKSPACE="dev" 
-        
-        terraform init
-
-      env: 
-          DATABRICKS_HOST: ${{ secrets.DB_DEV_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DB_DEV_PAT }}
-    
+        terraform workspace new stagemk
+        terraform init   
+            
     - name: Plan Terraform
       id: plan     
 
