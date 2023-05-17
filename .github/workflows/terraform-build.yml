@@ -38,29 +38,15 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     - name: Init Terraform
-      run: |
-        
-        export DATABRICKS_HOST= $TF_VAR_databricks_host
-        export DATABRICKS_TOKEN="dapid24a84b27054a5fccabc962278928be0-3" 
-        export TF_WORKSPACE="dev" 
-       
+      run: |              
+        export TF_WORKSPACE="dev"        
         terraform init   
             
     - name: Plan Terraform
       id: plan     
-
-  
-
-      run: |   
-        export DATABRICKS_HOST="https://adb-1710922579126448.8.azuredatabricks.net/"
-        export DATABRICKS_TOKEN="dapid24a84b27054a5fccabc962278928be0-3"  
+      run: |           
         export TF_WORKSPACE="dev" 
-
-        terraform plan 
-
-      #env: 
-      #  DATABRICKS_HOST: "https://adb-1710922579126448.8.azuredatabricks.net/"
-      #  DATABRICKS_TOKEN: "dapid24a84b27054a5fccabc962278928be0-3"        
+        terraform plan             
                
     - name: Apply Terraform
       id: apply      
