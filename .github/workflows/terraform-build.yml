@@ -22,7 +22,11 @@ jobs:
       run:
         shell: bash
         working-directory: ./Terraform
-     
+
+    env: 
+      TF_VAR_databricks_host: "${{ secrets.DB_DEV_HOST }}"
+      TF_VAR_databricks_token: "${{ secrets.DB_DEV_PAT }}"
+
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout repository
@@ -36,7 +40,7 @@ jobs:
     - name: Init Terraform
       run: |
         
-        export DATABRICKS_HOST="https://adb-1710922579126448.8.azuredatabricks.net/"
+        export DATABRICKS_HOST= $TF_VAR_databricks_host
         export DATABRICKS_TOKEN="dapid24a84b27054a5fccabc962278928be0-3" 
         export TF_WORKSPACE="dev" 
        
@@ -45,9 +49,7 @@ jobs:
     - name: Plan Terraform
       id: plan     
 
-      #env: 
-      #  TF_VAR_databricks_host: "${{ secrets.DB_DEV_HOST }}"
-      #  TF_VAR_databricks_token: "${{ secrets.DB_DEV_PAT }}"
+  
 
       run: |   
         export DATABRICKS_HOST="https://adb-1710922579126448.8.azuredatabricks.net/"
