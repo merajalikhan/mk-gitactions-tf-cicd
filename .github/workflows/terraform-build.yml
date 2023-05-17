@@ -34,7 +34,7 @@ jobs:
         echo ${{secrets.DB_DEV_HOST}}
         echo "Trick to echo GitHub Actions Secret:  "
         echo ${{secrets.DB_DEV_HOST}} | sed 's/./& /g'
-        TF_DATA_DIR=Terraform
+        working-directory: ./Terraform
         terraform init
     
 
