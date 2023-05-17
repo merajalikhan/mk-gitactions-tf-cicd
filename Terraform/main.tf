@@ -21,7 +21,7 @@ terraform {
   }
   */
    cloud {
-    organization = "mk-test-organisation"
+    organization = "mk-gitactions-tf-cicd"
 
     workspaces {
       name = "mk-test-api-ws"
