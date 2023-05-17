@@ -15,3 +15,4 @@ cluster_name= "MK Test Cluster"
 
 #databricks_host =  "xx"
 #databricks_token =  "xx"
+workspace_name ="mk-test-api-ws-api"
