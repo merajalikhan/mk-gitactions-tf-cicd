@@ -1,0 +1,44 @@
+name: 'Databrick Deployment Workflow'
+
+on:
+  #push:
+   # branches: [ "main" ]
+  pull_request:
+     branches: [ "main" ]
+  
+permissions:
+  contents: read
+
+jobs:  
+  build-and-test:
+    name: 'Build and Test'
+    runs-on: ubuntu-latest
+    #environment: development
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+     
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Unit Test
+      run: |
+        echo "unit testing goes here"
+        
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: tf-files
+        path: |
+          Terraform
+        retention-days: 2
+
+         
+      
+      
+      
+      
