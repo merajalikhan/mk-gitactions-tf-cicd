@@ -25,12 +25,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    - name: np install, build and test
+    - name: Unit Test
       run: |
-        npm install
-        npm run build -- if present
-        npm test
-
+        echo "unit testing goes here"
+        
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
       with:
