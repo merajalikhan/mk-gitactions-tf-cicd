@@ -24,7 +24,7 @@ terraform {
     organization = "mk-test-organisation"
 
     workspaces {
-      name = var.workspace_name #"mk-test-api-ws-api"
+      name = "mk-test-api-ws-api"
     }
   }
 

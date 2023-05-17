@@ -40,11 +40,13 @@ jobs:
 
     - name: Init Terraform
       run: |                      
+        export TF_WORKSPACE="mk-gitactions-tf-cicd"
         terraform init   
             
     - name: Plan Terraform
       id: plan     
-      run: |                   
+      run: | 
+        export TF_WORKSPACE="mk-gitactions-tf-cicd"                  
         terraform plan             
                
     - name: Apply Terraform
