@@ -46,7 +46,7 @@ variable cluster_name{
   type = string
 }
 
-/*variable "databricks_host" {
+*variable "databricks_host" {
   description = "Databricks host name (workspace)."
   type        = string
 }
@@ -56,7 +56,7 @@ variable "databricks_token" {
   description = "The databricks PAT."
   type        = string
 }
-*/
+
 
 
 
