@@ -1,4 +1,4 @@
-name: 'Databrick Deployment Workflow'
+name: 'Deploy Databrick Deployment Workflow'
 
 on:
   push:
@@ -22,9 +22,10 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Download build files
-      uses: actions/download-artifact@v3
-      with:
-        name: tf-files
+      run: echo "download artifacts TODO"
+      #uses: actions/download-artifact@v3
+      #with:
+      #  name: tf-files
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
