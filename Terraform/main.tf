@@ -7,21 +7,18 @@ terraform {
 
   #specifies which Terraform Cloud workspaces to use for  accessing shared state and any environment variables.
  
-  cloud {
-    organization = "mk-test-organisation"
-
-    workspaces {
-      name = "mk-gitactions-tf-cicd"
-    }
-    
-  }
-
+#  cloud {
+#    organization = "mk-test-organisation"
+#    workspaces {
+#      name = "mk-gitactions-tf-cicd"
+#    }    
+  #}
   
- /* backend "remote" {
+  backend "remote" {
     hostname     = "app.terraform.io"
     organization = "mk-test-organisation"
     workspaces { prefix = "mk-git-actions-tf-api-" }
-  }*/
+  }
 }
 
 provider "databricks" {
