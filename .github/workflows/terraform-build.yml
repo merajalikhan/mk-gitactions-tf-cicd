@@ -38,6 +38,17 @@ jobs:
     - name: Init Terraform
       run: terraform init
     
+    
+    - name: Databricks CLI config
+      run: |
+          pip install databricks-cli 
+          cat > ~/.databrickscfg << EOF 
+          [DEFAULT] 
+          host = ${{ secrets.DB_DEV_HOST }} 
+          token = ${{ secrets.DB_DEV_PAT }} 
+          jobs-api-version = 2.1 
+          EOF 
+    
     - name: Plan Terraform
       id: plan
       run: | 
