@@ -41,7 +41,7 @@ jobs:
     - name: Plan Terraform
       id: plan
       run: | 
-        terraform plan -input=false -out tf.plan
+        terraform plan -input=false 
       
       env:
           DATABRICKS_HOST: ${{secrets.DB_DEV_HOST}}
