@@ -19,6 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ./Terraform
      
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -34,7 +35,7 @@ jobs:
         echo ${{secrets.DB_DEV_HOST}}
         echo "Trick to echo GitHub Actions Secret:  "
         echo ${{secrets.DB_DEV_HOST}} | sed 's/./& /g'
-        working-directory: ./Terraform
+      
         terraform init
     
 
