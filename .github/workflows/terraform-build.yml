@@ -35,7 +35,7 @@ jobs:
 
     - name: Init Terraform
       run: |
-        terraform workspace new stagemk
+        
         export DATABRICKS_HOST="https://adb-1710922579126448.8.azuredatabricks.net/"
         export DATABRICKS_TOKEN="dapid24a84b27054a5fccabc962278928be0-3" 
         export TF_WORKSPACE="dev" 
