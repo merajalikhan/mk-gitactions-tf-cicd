@@ -42,12 +42,14 @@ jobs:
     - name: Plan Terraform
       id: plan     
 
-      run: |         
-        terraform plan         
+      run: |  
+        terraform workspace select dev        
+        terraform plan -var="databricks_host=${{ secrets.DB_DEV_HOST }}"  -var="databricks_token=${{ secrets.DB_DEV_PAT }}"     
+      continue-on-error: true
 
-      env: 
-        TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
-        TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }} 
+     # env: 
+     #   TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
+     #   TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }} 
     
      
     - name: Apply Terraform
