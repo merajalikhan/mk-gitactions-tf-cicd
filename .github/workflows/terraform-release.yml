@@ -1,18 +1,22 @@
-name: 'Deploy Databrick Deployment Workflow'
+name: 'Deploy Databrick Workflow'
 
 on:
   push:
-    branches: [ "main" ]
-  #pull_request:
-  
+    branches: [ "main" ]  
+
 permissions:
   contents: read
+
+env: 
+    TF_VAR_databricks_host: ${{ secrets.DATABRICKS_HOST }}
+    TF_VAR_databricks_token: ${{ secrets.DATABRICKS_TOKEN }}
+    TF_WORKSPACE: ${{vars.TF_WORKSPACE}} #"mk-test-api-ws-api" 
 
 jobs:  
   terraform:
     name: 'Deploy Databricks Notebooks and Jobs'
     runs-on: ubuntu-latest
-    #environment: development
+    environment: dev
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -33,11 +37,19 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init              
-      run: |          
-          terraform init -input=false
-          terraform workspace show    
+    - name: Init Terraform
+      run: |                                       
+        terraform init   
+
+    - name: Plan Terraform
+      id: plan     
+      run: | 
+        terraform plan             
+               
+    - name: Apply Terraform
+      id: apply      
+      run: |        
+        terraform apply -auto-approve    
       
       
       
