@@ -40,14 +40,17 @@ jobs:
 
     - name: Init Terraform
       run: |                      
-        export TF_WORKSPACE="mk-test-api-ws-api"
         unset TF_WORKSPACE
+        export TF_WORKSPACE="mk-test-api-ws-api"
+        
         terraform init   
             
     - name: Plan Terraform
       id: plan     
       run: | 
-        export TF_WORKSPACE="mk-test-api-ws-api"                  
+        unset  TF_WORKSPACE             
+        export TF_WORKSPACE="mk-test-api-ws-api"    
+        
         terraform plan             
                
     - name: Apply Terraform
