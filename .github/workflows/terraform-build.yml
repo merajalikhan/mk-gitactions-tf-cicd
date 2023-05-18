@@ -56,7 +56,9 @@ jobs:
     - name: Apply Terraform
       id: apply      
       run: |
-       # export TF_WORKSPACE="dev"
+        # export TF_WORKSPACE="dev"
+        unset  TF_WORKSPACE             
+        export TF_WORKSPACE="mk-test-api-ws-api"    
         terraform apply -auto-approve 
       
           
