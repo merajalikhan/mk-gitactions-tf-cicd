@@ -55,6 +55,7 @@ jobs:
         name: tf-files
         path: |
           Terraform
+          !Terraform/.terraform
           retention-days: 2
       
 
