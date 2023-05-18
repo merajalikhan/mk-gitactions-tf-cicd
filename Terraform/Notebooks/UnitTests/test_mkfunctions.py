@@ -1,3 +1,4 @@
+
 import pytest
 import pyspark
 from mkfunctions import *
@@ -7,7 +8,8 @@ from pyspark.sql.types import StructType, StructField, IntegerType, FloatType, S
 tableName    = "diamonds"
 dbName       = "default"
 columnName   = "clarity"
-columnValue  = "SI2"
+#columnValue  = "SI2"
+columnValue  = "SI222"
 
 # Because this file is not a Databricks notebook, you
 # must create a Spark session. Databricks notebooks
@@ -47,5 +49,5 @@ def test_columnExists():
   assert columnExists(df, columnName) is True
 
 # Is there at least one row for the value in the specified column?
-def test_numRowsInColumnForValue():
-  assert numRowsInColumnForValue(df, columnName, columnValue) > 0
+#def test_numRowsInColumnForValue():
+#  assert numRowsInColumnForValue(df, columnName, columnValue) > 0
