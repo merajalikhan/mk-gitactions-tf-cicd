@@ -25,7 +25,7 @@ terraform {
 
     workspaces {
       #name = "mk-test-api-ws-api"
-      tags = ["mk-gitactions-tf-cicd"]
+      tags = ["databricks-tf"]
     }
   }
 

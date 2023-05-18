@@ -19,7 +19,7 @@ jobs:
   build-and-test:
     name: 'Build and Test'
     runs-on: ubuntu-latest
-    environment: staging
+    environment:  ${{vars.GIT_ENVIRONMENT}}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -43,19 +43,13 @@ jobs:
     - name: Unit tests
       run : |
         echo "Unit testing config goes here...."  
-        python -V 
-        pip install virtualenv
-        virtualenv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-      
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
       with:
         name: tf-files
         path: |
           Terraform
-          !Terraform/.terraform
+          !.terraform
           retention-days: 2
       
 
