@@ -25,6 +25,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./Terraform
+        
 
     
 
@@ -41,7 +42,8 @@ jobs:
     - name: Init Terraform
       run: |                      
         unset TF_WORKSPACE
-        export TF_WORKSPACE="mk-test-api-ws-api-staging"
+        # export TF_WORKSPACE="mk-test-api-ws-api-staging"
+        export TF_WORKSPACE= var.workspace_name
         
         terraform init   
             
