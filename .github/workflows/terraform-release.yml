@@ -14,7 +14,7 @@ env:
 
 jobs:  
   terraform:
-    name: 'Deploy Databricks Notebooks and Jobs'
+    name: 'Deploy Databricks'
     runs-on: ubuntu-latest
     environment: dev
 
