@@ -13,6 +13,7 @@ permissions:
 env: 
   TF_VAR_databricks_host: ${{ secrets.DB_DEV_HOST }}
   TF_VAR_databricks_token: ${{ secrets.DB_DEV_PAT }}
+  TF_WORKSPACE: "mk-test-api-ws-api-staging"  
 
 jobs:  
   build-and-test:
@@ -41,11 +42,8 @@ jobs:
 
     - name: Init Terraform
       run: |                      
-        unset TF_WORKSPACE   
-        
+        unset TF_WORKSPACE           
         terraform init   
-      env:
-          TF_WORKSPACE: "mk-test-api-ws-api-staging"      
 
     - name: Plan Terraform
       id: plan     
