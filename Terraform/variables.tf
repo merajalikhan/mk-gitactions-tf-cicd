@@ -58,5 +58,11 @@ variable "databricks_token" {
 }
 
 
+variable "workspace_name" {
+  description = "The databricks workspace_name."
+  type        = string
+}
+
+
 
 

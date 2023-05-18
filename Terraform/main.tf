@@ -24,7 +24,8 @@ terraform {
     organization = "mk-test-organisation"
 
     workspaces {
-      name = "mk-test-api-ws-api"
+      #name = "mk-test-api-ws-api"
+      tags = ["mk-gitactions-tf-cicd"]
     }
   }
 
