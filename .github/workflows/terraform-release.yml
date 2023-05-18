@@ -26,8 +26,8 @@ jobs:
      
     steps:
     # Checkout the repository to the GitHub Actions runner
-    - name: Download build files
-      run: echo "download artifacts TODO"
+    #- name: Download build files
+      #run: echo "download artifacts TODO"
       #uses: actions/download-artifact@v3
       #with:
       #  name: tf-files
