@@ -16,7 +16,7 @@ jobs:
   terraform:
     name: 'Deploy Databricks'
     runs-on: ubuntu-latest
-    environment: dev
+    environment:  ${{vars.GIT_ENVIRONMENT}}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
