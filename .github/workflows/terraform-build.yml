@@ -54,7 +54,13 @@ jobs:
       run: |        
         terraform apply -auto-approve 
       
-          
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: tf-files
+        path: |
+          Terraform
+          retention-days: 2
       
 
 
