@@ -42,7 +42,7 @@ jobs:
             
       uses: databricks/run-notebook@v0
       with:
-          local-notebook-path: ./Terraform/Notebooks/MK-TEST-20230518.py
+          local-notebook-path: Notebooks/MK-TEST-20230518.py
           databricks-host: ${{ secrets.DATABRICKS_HOST }}
           databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
           git-commit: ${{ github.event.pull_request.head.sha }}
