@@ -1,8 +1,6 @@
 name: 'Build Databricks Workflow'
 
-on:
-  #push:
-   # branches: [ "main" ]
+on: 
   pull_request:
      branches: [ "main" ]
   
@@ -29,8 +27,8 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout repository
-      uses: actions/checkout@v3    
-      
+      uses: actions/checkout@v3       
+    
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -40,9 +38,28 @@ jobs:
       run: |                                       
         terraform init   
 
-    - name: Unit tests
-      run : |
-        echo "Unit testing config goes here...."  
+    - name: Unit tests    
+            
+      uses: databricks/run-notebook@v0
+      with:
+          local-notebook-path: Terraform/Notebooks/MK-TEST-20230518.py
+          databricks-host: ${{ secrets.DATABRICKS_HOST }}
+          databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+          git-commit: ${{ github.event.pull_request.head.sha }}
+          new-cluster-json: >
+            {
+              "num_workers": 1,
+              "spark_version": "12.2.x-scala2.12", 
+              "node_type_id": "Standard_DS3_v2"
+            }  
+          access-control-list-json: >
+            [
+              {
+                "group_name": "users",
+                "permission_level": "CAN_VIEW"
+              }
+            ] 
+
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
       with:

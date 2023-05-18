@@ -3,14 +3,17 @@ print ('mk test notebook!!')
 
 # COMMAND ----------
 
-credit_data = spark.read.format("csv") \
-                        .schema(custom_schema)\
-                        .option("header", "True")\
-                        .option("sep", ",") \
-                        .load("dbfs:/FileStore/shared_uploads/credit_train.csv")
 
-# COMMAND ----------
+def reverse(s):
+    return s[::-1]
 
-credit_data = credit_data \
-           .write.mode('append')\
-           .saveAsTable("creditdatawarehouse.credit_data_monthly_debt")
+import unittest
+
+class TestHelpers(unittest.TestCase):
+    def test_reverse(self):
+        self.assertEqual(reverse('abc'), 'cba')
+
+r = unittest.main(argv=[''], verbosity=2, exit=False)
+assert r.result.wasSuccessful(), 'Test failed; see logs above'
+
+
