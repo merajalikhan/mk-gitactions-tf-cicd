@@ -12,5 +12,7 @@ existing_dev_cluster_id="0426-161834-vhc628e8"
 existing_qa_cluster_id="0426-161834-vhc628e8"
 cluster_name= "MK Test Cluster"
 
-#databricks_host =  "xx"
-#databricks_token =  "xx"
+
+#databricks_host =  "xxxx"
+#databricks_token =  "xxxx"
+#workspace_name ="mk-test-api-ws-api-staging"
