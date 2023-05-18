@@ -42,7 +42,7 @@ jobs:
 
     - name: Unit tests
       run : |
-        working-directory: ./Terraform/
+        
         echo "Unit testing config goes here...." 
         python -V 
         pip install virtualenv
