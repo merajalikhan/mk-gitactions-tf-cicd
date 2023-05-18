@@ -1,8 +1,6 @@
 name: 'Build Databricks Workflow'
 
-on:
-  #push:
-   # branches: [ "main" ]
+on: 
   pull_request:
      branches: [ "main" ]
   
@@ -30,7 +28,21 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout repository
       uses: actions/checkout@v3    
-      
+    
+    - run: python -V 
+    - run: pip install virtualenv
+    - run: virtualenv venv
+    - run: source venv/bin/activate
+    - run: pip install -r requirements.txt
+    - run: |
+          echo "y
+          ${{ secrets.DATABRICKS_HOST }}
+          ${{ secrets.DATABRICKS_TOKEN }}
+          ${{ secrets.DATABRICKS_CLUSTER_ID }}      
+          15001" | databricks-connect configure
+          
+    -  run: pytest functions --junitxml=unit-testresults.xml
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -41,21 +53,8 @@ jobs:
         terraform init   
 
     - name: Unit tests
-      run : |
-        
-        echo "Unit testing config goes here...." 
-        python -V 
-        pip install virtualenv
-        virtualenv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-        run: |
-          echo "y
-          ${{ secrets.DATABRICKS_HOST }}
-          ${{ secrets.DATABRICKS_TOKEN }}
-          ${{ secrets.DATABRICKS_CLUSTER_ID }}      
-          15001" | databricks-connect configure
-          pytest functions --junitxml=unit-testresults.xml
+      run : |        
+        echo "Unit testing config goes here...."       
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
