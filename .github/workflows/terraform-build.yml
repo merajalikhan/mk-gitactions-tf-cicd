@@ -39,7 +39,7 @@ jobs:
           ${{ secrets.DATABRICKS_HOST }}
           ${{ secrets.DATABRICKS_TOKEN }}
           ${{ secrets.DATABRICKS_CLUSTER_ID }}      
-          15001" | databricks-connect configure
+          8787 " | databricks-connect configure
           
     -  run: pytest functions --junitxml=unit-testresults.xml
 
