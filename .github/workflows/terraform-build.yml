@@ -41,7 +41,7 @@ jobs:
     - name: Init Terraform
       run: |                      
         unset TF_WORKSPACE
-        export TF_WORKSPACE="mk-test-api-ws-api"
+        export TF_WORKSPACE="mk-test-api-ws-api-staging"
         
         terraform init   
             
@@ -49,7 +49,7 @@ jobs:
       id: plan     
       run: | 
         unset  TF_WORKSPACE             
-        export TF_WORKSPACE="mk-test-api-ws-api"    
+        export TF_WORKSPACE="mk-test-api-ws-api-staging"    
         
         terraform plan             
                
@@ -58,7 +58,7 @@ jobs:
       run: |
         # export TF_WORKSPACE="dev"
         unset  TF_WORKSPACE             
-        export TF_WORKSPACE="mk-test-api-ws-api"    
+        export TF_WORKSPACE="mk-test-api-ws-api-staging"    
         terraform apply -auto-approve 
       
           
