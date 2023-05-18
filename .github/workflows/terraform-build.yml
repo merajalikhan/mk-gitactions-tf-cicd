@@ -53,8 +53,7 @@ jobs:
           echo "y
           ${{ secrets.DATABRICKS_HOST }}
           ${{ secrets.DATABRICKS_TOKEN }}
-          "0518-123352-nb7rkkcm"
-          
+          ${{ secrets.DATABRICKS_CLUSTER_ID }}      
           15001" | databricks-connect configure
           pytest functions --junitxml=unit-testresults.xml
 
