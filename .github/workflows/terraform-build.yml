@@ -43,7 +43,7 @@ jobs:
       run: |                      
         unset TF_WORKSPACE
         # export TF_WORKSPACE="mk-test-api-ws-api-staging"
-        export TF_WORKSPACE= var.workspace_name
+        export TF_WORKSPACE= ${{secrets.TF_WORKSPACE}}
         
         terraform init   
             
