@@ -47,17 +47,11 @@ jobs:
     - name: Plan Terraform
       id: plan     
       run: | 
-        unset  TF_WORKSPACE             
-        export TF_WORKSPACE="mk-test-api-ws-api-staging"    
-        
         terraform plan             
                
     - name: Apply Terraform
       id: apply      
-      run: |
-        # export TF_WORKSPACE="dev"
-        unset  TF_WORKSPACE             
-        export TF_WORKSPACE="mk-test-api-ws-api-staging"    
+      run: |        
         terraform apply -auto-approve 
       
           
