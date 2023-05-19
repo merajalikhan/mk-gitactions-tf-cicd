@@ -1,22 +1,22 @@
 name: 'Build Databricks Workflow'
 
 on: 
-  pull_request:
+  pull_request:  ##  On any pull request , trigger to initiate workflow on the given branch
      branches: [ "main" ]
   
 permissions:
   contents: read
 
-   
+## Set Environment variables using values for Git env variables and secrets   
 env: 
   TF_VAR_databricks_host: ${{ secrets.DATABRICKS_HOST }}
   TF_VAR_databricks_token: ${{ secrets.DATABRICKS_TOKEN }}
-  TF_WORKSPACE: ${{vars.TF_WORKSPACE}} #"mk-test-api-ws-api"  
+  TF_WORKSPACE: ${{vars.TF_WORKSPACE}} ## TF workspace to run the terraform code and access to shared state 
 
 jobs:  
-  build-and-test:
+  build-and-test:  # Job name
     name: 'Build and Test'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  ## Runner
     environment:  ${{vars.GIT_ENVIRONMENT}}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -24,21 +24,38 @@ jobs:
       run:
         shell: bash
         working-directory: ./Terraform
+
     steps:
     # Checkout the repository to the GitHub Actions runner
-    - name: Checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v3       
     
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token  
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    - name: Init Terraform
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Initialize Terraform
       run: |                                       
         terraform init   
 
-    - name: Unit tests    
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      id: plan
+      if: github.ref == 'refs/heads/dev' && github.event_name == 'push'                     
+      run: |
+          export TF_WORKSPACE="dev"
+          terraform plan -input=false
+
+    # Check plan status    
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
+
+    # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code
+    - name: Run Unit Tests    
             
       uses: databricks/run-notebook@v0
       with:
@@ -60,6 +77,7 @@ jobs:
               }
             ] 
 
+    # Archive artifacats - (ex : Terraform config files / unit test results etc)    
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
       with:
