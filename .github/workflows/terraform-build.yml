@@ -44,8 +44,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan      
-      run: |
-          export TF_WORKSPACE="dev"
+      run: |          
           terraform plan -input=false
 
     # Check plan status    
