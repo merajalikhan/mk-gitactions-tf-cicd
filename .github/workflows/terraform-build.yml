@@ -43,8 +43,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      id: plan
-      if: github.ref == 'refs/heads/dev' && github.event_name == 'push'                     
+      id: plan      
       run: |
           export TF_WORKSPACE="dev"
           terraform plan -input=false

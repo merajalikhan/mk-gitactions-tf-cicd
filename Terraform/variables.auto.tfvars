@@ -2,7 +2,7 @@
 
 #cluster_name = "Shared Autoscaling"
 
-notebook_subdirectory = "Shared/TestProjects"
+notebook_subdirectory = "Shared/GitActions-TF-Tests"
 notebook_filename     = "mk-notebook.py"
 notebook_language     = "PYTHON"
 notebooks_folder =      "Notebooks"
