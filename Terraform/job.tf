@@ -23,7 +23,7 @@ data "databricks_notebook" "diamonds" {
     format = "SOURCE"
 }
 resource "databricks_job" "job2" {
-  name = var.job_name
+  name = "diamonds-data-job"
   existing_cluster_id =  var.existing_qa_cluster_id  #databricks_cluster.this.cluster_id
   #existing_cluster_id =  data.databricks_cluster.my_cluster.id  
   notebook_task {
