@@ -25,7 +25,7 @@ resource "databricks_cluster" "shared_autoscaling1" {
 
 
 output "cluster_id" {
- value = databricks_cluster.shared_autoscaling.id
+ value = databricks_cluster.shared_autoscaling1.id
 }
 
 
