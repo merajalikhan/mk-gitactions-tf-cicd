@@ -1,3 +1,4 @@
+/*
 resource "databricks_job" "job1" {
   name = var.job_name
   #existing_cluster_id =  var.existing_dev_cluster_id  #databricks_cluster.this.cluster_id
@@ -42,3 +43,4 @@ resource "databricks_job" "job2" {
 output "job_url" {
   value = databricks_job.job1.url
 }
+*/
