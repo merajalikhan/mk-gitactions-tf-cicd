@@ -75,16 +75,7 @@ jobs:
           #      "permission_level": "CAN_VIEW"
           #    }
           #  ] 
-
-    # Archive artifacats - (ex : Terraform config files / unit test results etc)    
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: tf-files
-        path: |
-          Terraform
-          !.terraform
-          retention-days: 2
+    
       
 
 
