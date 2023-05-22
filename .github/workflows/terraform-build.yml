@@ -57,24 +57,24 @@ jobs:
             
       uses: databricks/run-notebook@v0
       with:
-          local-notebook-path: Terraform/Notebooks/MK-TEST-20230518.py
-          databricks-host: ${{ secrets.DATABRICKS_HOST }}
-          databricks-token: ${{ secrets.DATABRICKS_TOKEN }}
+          local-notebook-path: Terraform/Notebooks/UnitTests/Unit-Tests.py
+          databricks-host: ${{ secrets.DATABRICKS_HOST_DEV }}
+          databricks-token: ${{ secrets.DATABRICKS_TOKEN_DEV }}
           git-commit: ${{ github.event.pull_request.head.sha }}
-          #existing-cluster-id: ${{vars.CLUSTER_ID}}
-          new-cluster-json: >
-            {
-              "num_workers": 1,
-              "spark_version": "12.2.x-scala2.12", 
-              "node_type_id": "Standard_DS3_v2"
-            }  
-          access-control-list-json: >
-            [
-              {
-                "group_name": "users",
-                "permission_level": "CAN_VIEW"
-              }
-            ] 
+          existing-cluster-id: ${{vars.CLUSTER_ID_DEV}}
+          #new-cluster-json: >
+          #  {
+          #    "num_workers": 1,
+          #    "spark_version": "12.2.x-scala2.12", 
+          #    "node_type_id": "Standard_DS3_v2"
+          #  }  
+          #access-control-list-json: >
+          #  [
+          #    {
+          #      "group_name": "users",
+          #      "permission_level": "CAN_VIEW"
+          #    }
+          #  ] 
     
       
 
