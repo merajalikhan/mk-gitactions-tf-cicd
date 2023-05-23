@@ -57,6 +57,10 @@ variable "databricks_token" {
   type        = string
 }
 
+variable existing_cluster_id{
+  description = "current cluster id"
+  type = string
+}
 
 /*variable "workspace_name" {
   description = "The databricks workspace_name."
