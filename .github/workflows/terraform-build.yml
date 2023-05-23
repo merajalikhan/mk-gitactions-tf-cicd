@@ -20,13 +20,10 @@ defaults:
       shell: bash
       working-directory: ./Terraform
 jobs:  
-  build-and-test:  # Job name
-    name: 'Build and Test'
+  build:  # Job name
+    name: 'Build'
     runs-on: ubuntu-latest  ## Runner
     environment:  ${{vars.GIT_ENVIRONMENT}}
-
-    
-    
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -56,29 +53,36 @@ jobs:
       run: exit 1
 
     # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code
-    - name: Run Unit Tests    
-            
+    
+  
+  test:  # Job name
+    name: 'Test'
+    needs: build
+    runs-on: ubuntu-latest  ## Runner
+    environment:  ${{vars.GIT_ENVIRONMENT}}
+    
+    steps:
+    - name: Run Unit Tests                
       uses: databricks/run-notebook@v0
       with:
-          local-notebook-path: Terraform/Notebooks/UnitTests/Unit-Tests.py
-          databricks-host: ${{ secrets.DATABRICKS_HOST_DEV }}
-          databricks-token: ${{ secrets.DATABRICKS_TOKEN_DEV }}
-          #git-commit: ${{ github.event.pull_request.head.sha }}
-          existing-cluster-id: ${{vars.CLUSTER_ID_DEV}}
-          #new-cluster-json: >
-          #  {
-          #    "num_workers": 1,
-          #    "spark_version": "12.2.x-scala2.12", 
-          #    "node_type_id": "Standard_DS3_v2"
-          #  }  
-          #access-control-list-json: >
-          #  [
-          #    {
-          #      "group_name": "users",
-          #      "permission_level": "CAN_VIEW"
-          #    }
-          #  ] 
-    
+        local-notebook-path: Terraform/Notebooks/UnitTests/Unit-Tests.py
+        databricks-host: ${{ secrets.DATABRICKS_HOST_DEV }}
+        databricks-token: ${{ secrets.DATABRICKS_TOKEN_DEV }}
+        #git-commit: ${{ github.event.pull_request.head.sha }}
+        existing-cluster-id: ${{vars.CLUSTER_ID_DEV}}
+        #new-cluster-json: >
+        #  {
+        #    "num_workers": 1,
+        #    "spark_version": "12.2.x-scala2.12", 
+        #    "node_type_id": "Standard_DS3_v2"
+        #  }  
+        #access-control-list-json: >
+        #  [
+        #    {
+        #      "group_name": "users",
+        #      "permission_level": "CAN_VIEW"
+        #    }
+        #  ] 
       
 
 
