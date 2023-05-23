@@ -2,7 +2,7 @@
 
 #cluster_name = "Shared Autoscaling"
 
-notebook_subdirectory = "Shared/GitActions-TF-Tests"
+notebook_subdirectory = "Shared/GitHubActionsTFTests"
 notebook_filename     = "mk-notebook.py"
 notebook_language     = "PYTHON"
 notebooks_folder =      "Notebooks"
@@ -13,6 +13,7 @@ existing_qa_cluster_id="0522-111458-woa5jlqy"
 cluster_name= "MK Test Cluster"
 
 
+#existing_cluster_id=""
 #databricks_host =  "xxxx"
 #databricks_token =  "xxxx"
 #workspace_name ="mk-test-api-ws-api-staging"
