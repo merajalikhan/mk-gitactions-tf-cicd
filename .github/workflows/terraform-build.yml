@@ -14,17 +14,16 @@ env:
   TF_WORKSPACE: ${{vars.TF_WORKSPACE}} ## TF workspace to run the terraform code and access to shared state 
   TF_VAR_existing_cluster_id : ${{vars.CLUSTER_ID}}
 
+# Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+defaults:
+    run:
+      shell: bash
+      working-directory: ./Terraform
 jobs:  
-  build-and-test:  # Job name
-    name: 'Build and Test'
+  build:  # Job name
+    name: 'Build'
     runs-on: ubuntu-latest  ## Runner
     environment:  ${{vars.GIT_ENVIRONMENT}}
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./Terraform
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -54,29 +53,40 @@ jobs:
       run: exit 1
 
     # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code
-    - name: Run Unit Tests    
-            
+    
+  
+  test:  # Job name
+    name: 'Test'
+    needs: build
+    runs-on: ubuntu-latest  ## Runner
+    environment:  ${{vars.GIT_ENVIRONMENT}}
+    
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+    - name: Checkout Repository
+      uses: actions/checkout@v3 
+
+    - name: Run Unit Tests                
       uses: databricks/run-notebook@v0
       with:
-          local-notebook-path: Terraform/Notebooks/UnitTests/Unit-Tests.py
-          databricks-host: ${{ secrets.DATABRICKS_HOST_DEV }}
-          databricks-token: ${{ secrets.DATABRICKS_TOKEN_DEV }}
-          #git-commit: ${{ github.event.pull_request.head.sha }}
-          existing-cluster-id: ${{vars.CLUSTER_ID_DEV}}
-          #new-cluster-json: >
-          #  {
-          #    "num_workers": 1,
-          #    "spark_version": "12.2.x-scala2.12", 
-          #    "node_type_id": "Standard_DS3_v2"
-          #  }  
-          #access-control-list-json: >
-          #  [
-          #    {
-          #      "group_name": "users",
-          #      "permission_level": "CAN_VIEW"
-          #    }
-          #  ] 
-    
+        local-notebook-path: Terraform/Notebooks/UnitTests/Unit-Tests.py
+        databricks-host: ${{ secrets.DATABRICKS_HOST_DEV }}
+        databricks-token: ${{ secrets.DATABRICKS_TOKEN_DEV }}
+        #git-commit: ${{ github.event.pull_request.head.sha }}
+        existing-cluster-id: ${{vars.CLUSTER_ID_DEV}}
+        #new-cluster-json: >
+        #  {
+        #    "num_workers": 1,
+        #    "spark_version": "12.2.x-scala2.12", 
+        #    "node_type_id": "Standard_DS3_v2"
+        #  }  
+        #access-control-list-json: >
+        #  [
+        #    {
+        #      "group_name": "users",
+        #      "permission_level": "CAN_VIEW"
+        #    }
+        #  ] 
       
 
 
