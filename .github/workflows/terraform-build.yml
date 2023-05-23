@@ -35,6 +35,7 @@ jobs:
   
   setup-terraform:  # Job name
     name: 'Setup Terraform'
+    needs: git-checkout
     runs-on: ubuntu-latest  ## Runner          
     steps:
         # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token  
