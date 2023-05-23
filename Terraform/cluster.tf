@@ -24,6 +24,10 @@ resource "databricks_cluster" "mk-all-purpose" {
 }
 */
 
+data "databricks_cluster" "my_cluster" {
+  cluster_name = databricks_cluster.mk-all-purpose.cluster_name #var.cluster_name
+  } 
+
 output "cluster_id" {
  value = databricks_cluster.mk-all-purpose.id
 }

@@ -1,4 +1,5 @@
 
+/*
 resource "databricks_job" "job1" {
   name = var.job_name
   #existing_cluster_id =  var.existing_dev_cluster_id  #databricks_cluster.this.cluster_id
@@ -23,12 +24,13 @@ data "databricks_notebook" "diamonds" {
     path = "/${var.notebook_subdirectory}/mk-diamonds-data.py"
     format = "SOURCE"
 }
+*/
 resource "databricks_job" "job2" {
   name = "diamonds-data-job"
   existing_cluster_id =  var.existing_cluster_id  #databricks_cluster.this.cluster_id
   #existing_cluster_id =  data.databricks_cluster.my_cluster.id  
   notebook_task {
-    notebook_path = data.databricks_notebook.diamonds.id
+    notebook_path = data.databricks_notebook.my_notebooks["mk-diamonds-data.py"].id#  data.databricks_notebook.diamonds.id
   }
   email_notifications {
     on_success = [var.notification_email]
@@ -40,8 +42,11 @@ resource "databricks_job" "job2" {
     timezone_id = "Europe/London"
   }
 }
+
+
 output "job_url" {
-  value = databricks_job.job1.url
+  value = databricks_job.job2.url
 }
+
 
 

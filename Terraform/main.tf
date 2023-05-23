@@ -38,9 +38,7 @@ provider "databricks" {
 
 //data "databricks_current_user" "logged_in_user" {}
 
-data "databricks_cluster" "my_cluster" {
-  cluster_name = databricks_cluster.mk-all-purpose.cluster_name #var.cluster_name
-  } 
+
 
 
 
