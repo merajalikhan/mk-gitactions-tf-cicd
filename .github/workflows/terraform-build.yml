@@ -16,54 +16,46 @@ env:
 
 # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
 defaults:
-  run:
-    shell: bash
-    working-directory: ./Terraform
-
+    run:
+      shell: bash
+      working-directory: ./Terraform
 jobs:  
-  git-checkout:  # Job name
-    name: 'Checkout Rep'
+  build-and-test:  # Job name
+    name: 'Build and Test'
     runs-on: ubuntu-latest  ## Runner
+    environment:  ${{vars.GIT_ENVIRONMENT}}
+
     
+    
+
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout Repository
       uses: actions/checkout@v3       
     
-    # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code
-    
-  
-  setup-terraform:  # Job name
-    name: 'Setup Terraform'
-    needs: git-checkout
-    runs-on: ubuntu-latest  ## Runner          
-    steps:
-        # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token  
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}  
-          
-       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-      - name: Initialize Terraform
-        run: |                                       
-          terraform init   
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token  
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-        # Generates an execution plan for Terraform
-      - name: Terraform Plan
-        id: plan      
-        run: |          
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Initialize Terraform
+      run: |                                       
+        terraform init   
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      id: plan      
+      run: |          
           terraform plan -input=false
 
-        # Check plan status    
-      - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
+    # Check plan status    
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
 
-  run-unit-tests:  # Job name
-    name: 'Run Unit Test'
-    runs-on: ubuntu-latest  ## Runner          
-    steps:
+    # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code
     - name: Run Unit Tests    
             
       uses: databricks/run-notebook@v0
@@ -85,4 +77,21 @@ jobs:
           #      "group_name": "users",
           #      "permission_level": "CAN_VIEW"
           #    }
-          #  ]           
+          #  ] 
+    
+      
+
+
+
+
+       
+
+
+
+
+    
+         
+      
+      
+      
+      
