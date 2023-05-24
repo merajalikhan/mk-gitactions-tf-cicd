@@ -1,3 +1,25 @@
+resource "databricks_job" "diamonds-data-job" {
+  name = "diamonds-data-job"
+  existing_cluster_id =  var.existing_cluster_id  #databricks_cluster.this.cluster_id
+  #existing_cluster_id =  data.databricks_cluster.my_cluster.id  
+  notebook_task {
+    notebook_path = data.databricks_notebook.all_notebooks_data["mk-diamonds-data.py"].id#  data.databricks_notebook.diamonds.id
+  }
+  email_notifications {
+    on_success = [var.notification_email]
+    on_failure = [var.notification_email]
+    on_start = [var.notification_email]
+  }
+  schedule {
+    quartz_cron_expression =  "0 40 18 * * ?" 
+    timezone_id = "Europe/London"
+  }
+}
+
+output "job_url" {
+  value = databricks_job.diamonds-data-job.url
+}
+
 
 /*
 resource "databricks_job" "job1" {
@@ -25,28 +47,4 @@ data "databricks_notebook" "diamonds" {
     format = "SOURCE"
 }
 */
-resource "databricks_job" "job2" {
-  name = "diamonds-data-job"
-  existing_cluster_id =  var.existing_cluster_id  #databricks_cluster.this.cluster_id
-  #existing_cluster_id =  data.databricks_cluster.my_cluster.id  
-  notebook_task {
-    notebook_path = data.databricks_notebook.my_notebooks["mk-diamonds-data.py"].id#  data.databricks_notebook.diamonds.id
-  }
-  email_notifications {
-    on_success = [var.notification_email]
-    on_failure = [var.notification_email]
-    on_start = [var.notification_email]
-  }
-  schedule {
-    quartz_cron_expression =  "0 40 18 * * ?" 
-    timezone_id = "Europe/London"
-  }
-}
-
-
-output "job_url" {
-  value = databricks_job.job2.url
-}
-
-
 

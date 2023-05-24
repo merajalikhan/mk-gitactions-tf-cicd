@@ -2,16 +2,14 @@
 
 #cluster_name = "Shared Autoscaling"
 
-notebook_subdirectory = "Shared/GitHubActionsTFTests"
-notebook_filename     = "mk-notebook.py"
+all_notebook_folder = "Shared/GitHubActionsTFTests/Notebooks"
+unit_tests_notebook_folder = "Shared/GitHubActionsTFTests/UnitTest"
 notebook_language     = "PYTHON"
-notebooks_folder =      "Notebooks"
-
 notification_email= "meraj.khan@datalytyx.com"
-existing_dev_cluster_id="0426-161834-vhc628e8"
-existing_qa_cluster_id="0522-111458-woa5jlqy"
 cluster_name= "MK Test Cluster"
 
+existing_dev_cluster_id=""
+existing_qa_cluster_id=""
 
 #existing_cluster_id=""
 #databricks_host =  "xxxx"
