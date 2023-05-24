@@ -1,6 +1,6 @@
 resource "databricks_directory" "unit_test_directory" {
-  path = "Shared/GitHubActionsTFTests/UnitTestNotebooks"
+  path = var.unit_tests_notebook_folder
 }
 resource "databricks_directory" "notebooks_directory" {
-  path = "Shared/GitHubActionsTFTests/Notebooks"
+  path = var.all_notebook_folder
 }
