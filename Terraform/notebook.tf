@@ -33,6 +33,7 @@ resource "databricks_notebook" "all_notebooks" {
 
 
 data "databricks_notebook" "my_notebooks" {
+  depends_on = [ databricks_notebook.all_notebooks ]
   for_each = fileset("${path.module}/Notebooks", "*") 
   path="/${var.notebook_subdirectory}/${each.value}"
   format = "SOURCE"
