@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %sql
-# MAGIC CREATE DATABASE IF NOT EXISTS CreditDataWarehouse
+# MAGIC CREATE DATABASE IF NOT EXISTS mktest_db
 
 # COMMAND ----------
 
@@ -50,4 +50,4 @@ credit_data.show(5)
 
 credit_data = credit_data \
            .write.mode('append')\
-           .saveAsTable("creditdatawarehouse.credit_data_monthly_debt")           
+           .saveAsTable("mktest-db.credit_data_monthly_debt")           
