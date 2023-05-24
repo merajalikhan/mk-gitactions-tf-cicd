@@ -1,5 +1,6 @@
 # Databricks notebook source
-#
+# MAGIC %sql
+# MAGIC CREATE DATABASE IF NOT EXISTS mktest_db
 
 # COMMAND ----------
 
@@ -13,7 +14,7 @@ diamonds_data = spark.read.format("csv") \
 
 diamonds_data = diamonds_data \
            .write.mode('append')\
-           .saveAsTable("test_diamonds_data")           
+           .saveAsTable("mktest_db.all_diamonds_data")           
              
 
 # COMMAND ----------
@@ -24,10 +25,8 @@ diamonds_data.select('carat','cut','color','clarity').filter('cut = "Premium"').
 
 diamonds_data.select('carat','cut','color','clarity').filter('cut = "Premium"')\
              .write.mode("append")\
-             .saveAsTable("creditdatawarehouse.diamonds_data")
+             .saveAsTable("mktest_db.selected_col_diamonds_data")
 
 # COMMAND ----------
 
-diamonds_data.select('carat','cut','color','clarity').filter('cut = "Premium"')\
-             .write.mode("append")\
-             .saveAsTable("creditdatawarehouse.diamonds_data_test")
+
