@@ -4,20 +4,11 @@ variable "notebook_subdirectory" {
   default     = "Deployed by Terraform"
 }
 
-variable "notebook_filename" {
-  description = "The notebook's filename."
-  type        = string
-}
-
 variable "notebook_language" {
   description = "The language of the notebook."
   type        = string
 }
 
-variable "notebooks_folder" {
-  description = "The folders for the notebooks."
-  type        = string
-}
 #variable "cluster_name"{
 #    type        = string
 #}
@@ -69,6 +60,16 @@ variable existing_cluster_id{
 */
 
 
+variable "all_notebook_folder" {
+  description = "A name for the subdirectory to store the notebook."
+  type        = string
+  default     = "Deployed by Terraform"
+}
 
+variable "unit_tests_notebook_folder" {
+  description = "A name for the subdirectory to store the notebook."
+  type        = string
+  default     = "Deployed by Terraform"
+}
 
 
