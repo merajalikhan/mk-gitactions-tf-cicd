@@ -1,4 +1,4 @@
-name: 'Deploy Databrick Workflow'
+name: 'Destroy Databrick Workflow'
 
 # Gitaction workflow to : trigger on push to "main", build or change infrastructure according to Terraform configuration files    
 on:
@@ -16,7 +16,8 @@ permissions:
 env: 
     TF_VAR_databricks_host: ${{ secrets.DATABRICKS_HOST }}
     TF_VAR_databricks_token: ${{ secrets.DATABRICKS_TOKEN }}
-    TF_WORKSPACE: ${{vars.TF_WORKSPACE}} #"mk-test-api-ws-api" 
+    TF_WORKSPACE: ${{vars.TF_WORKSPACE}} 
+    TF_VAR_existing_cluster_id : ${{vars.CLUSTER_ID}}
     
 jobs:  
   release-latest-code:  ## Job Name
@@ -49,7 +50,8 @@ jobs:
 
     # Generates an execution plan for Terraform    
     - name: Plan Terraform
-      id: plan     
+      id: plan
+      if: ${{ github.event.inputs.confirmation }}== true     
       run: | 
         terraform plan 
 
