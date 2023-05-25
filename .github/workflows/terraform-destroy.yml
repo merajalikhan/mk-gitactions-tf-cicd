@@ -21,7 +21,7 @@ env:
     
 jobs:  
   release-latest-code:  ## Job Name
-    name: 'Deploy Databricks'
+    name: 'Destroy Databricks'
     runs-on: ubuntu-latest  ## Runner
     environment:  ${{vars.GIT_ENVIRONMENT}}
 
@@ -53,7 +53,7 @@ jobs:
       id: plan
       if: ${{ github.event.inputs.confirmation }}== true     
       run: | 
-        terraform plan 
+        terraform plan -destroy 
 
     # Check plan status    
     - name: Terraform Plan Status
@@ -65,7 +65,7 @@ jobs:
       id: apply     
       if: ${{ github.event.inputs.confirmation }}== true
       run: |        
-        terraform destroy
+        terraform destroy -auto-approve
       
       
       
