@@ -1,0 +1,64 @@
+name: 'Deploy Databrick Workflow'
+
+# Gitaction workflow to : trigger on push to "main", build or change infrastructure according to Terraform configuration files    
+on:
+  push:  ## On code pushed to main, trigger to initiate workflow on the given branch
+    branches: [ "main" ]  
+
+permissions:
+  contents: read
+
+## Set Environment variables using values for Git env variables and secrets   
+env: 
+    TF_VAR_databricks_host: ${{ secrets.DATABRICKS_HOST }}
+    TF_VAR_databricks_token: ${{ secrets.DATABRICKS_TOKEN }}
+    TF_WORKSPACE: ${{vars.TF_WORKSPACE}} #"mk-test-api-ws-api" 
+    
+jobs:  
+  release-latest-code:  ## Job Name
+    name: 'Deploy Databricks'
+    runs-on: ubuntu-latest  ## Runner
+    environment:  ${{vars.GIT_ENVIRONMENT}}
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./Terraform
+     
+    steps:   
+    
+     # Checkout the repository to the GitHub Actions runner
+    - name: Checkout Repository
+      uses: actions/checkout@v3   
+    
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token  
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.    
+    - name: Initialize Terraform
+      run: |                                       
+        terraform init   
+
+    # Generates an execution plan for Terraform    
+    - name: Plan Terraform
+      id: plan     
+      run: | 
+        terraform plan 
+
+    # Check plan status    
+    - name: Terraform Plan Status
+      if: steps.plan.outcome == 'failure'
+      run: exit 1            
+
+    # Destroy all changes to build or change infrastructure according to Terraform configuration files    
+    - name: Destroy Terraform
+      id: apply      
+      run: |        
+        terraform destroy
+      
+      
+      
