@@ -68,7 +68,7 @@ jobs:
 
       # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code  
     - name: Run Unit Tests  
-      if: ${{vars.GIT_ENVIRONMENT}} !='dx-dev'              
+      if: ${{vars.GIT_ENVIRONMENT}} !='staging'              
       uses: databricks/run-notebook@v0
       with:
         local-notebook-path: Terraform/Notebooks/UnitTests/mk-all-unit-tests.py
