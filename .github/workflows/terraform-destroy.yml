@@ -4,10 +4,10 @@ name: 'Destroy Databrick Workflow'
 on:
   workflow_dispatch:
     inputs:
-      confirmation:
-        description: 'confirmation'     
+      destroy_artifacts:
+        description: 'Destroy artifacts'
         required: true
-        default: false
+        default: 'true'
 
 permissions:
   contents: read
@@ -49,9 +49,9 @@ jobs:
         terraform init   
 
     # Generates an execution plan for Terraform    
-    - name: Plan Terraform
-      id: plan
-      if: ${{ github.event.inputs.confirmation }}== true     
+    - if: github.event.inputs.destroy_artifacts == 'true'
+      name: Plan Terraform
+      id: plan         
       run: | 
         terraform plan -destroy 
 
@@ -63,7 +63,7 @@ jobs:
     # Destroy all changes to build or change infrastructure according to Terraform configuration files    
     - name: Destroy Terraform
       id: apply     
-      if: ${{ github.event.inputs.confirmation }}== true
+      if: github.event.inputs.destroy_artifacts == 'true'
       run: |        
         terraform destroy -auto-approve
       
