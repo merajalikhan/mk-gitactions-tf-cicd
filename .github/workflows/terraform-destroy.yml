@@ -2,8 +2,12 @@ name: 'Deploy Databrick Workflow'
 
 # Gitaction workflow to : trigger on push to "main", build or change infrastructure according to Terraform configuration files    
 on:
-  push:  ## On code pushed to main, trigger to initiate workflow on the given branch
-    branches: [ "main" ]  
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'confirmation'     
+        required: true
+        default: false
 
 permissions:
   contents: read
@@ -56,7 +60,8 @@ jobs:
 
     # Destroy all changes to build or change infrastructure according to Terraform configuration files    
     - name: Destroy Terraform
-      id: apply      
+      id: apply     
+      if: ${{ github.event.inputs.confirmation }}== true
       run: |        
         terraform destroy
       
