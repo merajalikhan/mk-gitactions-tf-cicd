@@ -26,6 +26,7 @@ jobs:
     environment:  ${{vars.GIT_ENVIRONMENT}}
 
     steps:
+      run-name: Deploy to ${{ vars.GIT_ENVIRONMENT }} by @${{ github.actor }}
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout Repository
       uses: actions/checkout@v3       
@@ -67,7 +68,8 @@ jobs:
       uses: actions/checkout@v3 
 
       # Run unit tests - use databrick's  run-notebook action to run a notebook. The notebook contains unit tests code  
-    - name: Run Unit Tests                
+    - name: Run Unit Tests  
+      if: ${{vars.GIT_ENVIRONMENT}} !='dx-dev'              
       uses: databricks/run-notebook@v0
       with:
         local-notebook-path: Terraform/Notebooks/UnitTests/mk-all-unit-tests.py
