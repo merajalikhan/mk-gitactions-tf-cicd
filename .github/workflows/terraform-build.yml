@@ -44,8 +44,9 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       id: plan 
-      echo ${{vars.GIT_ENVIRONMENT}}       
-      run: |          
+      
+      run: |
+          echo ${{vars.GIT_ENVIRONMENT}}                 
           terraform plan -input=false
 
     # Check plan status    
