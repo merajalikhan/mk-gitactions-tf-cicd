@@ -43,7 +43,8 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      id: plan      
+      id: plan 
+      if: ${{vars.GIT_ENVIRONMENT}} !='staging'      
       run: |          
           terraform plan -input=false
 
