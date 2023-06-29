@@ -11,6 +11,16 @@ resource "databricks_cluster" "mk-all-purpose" {
   num_workers = 1  
 }
 
+
+resource "databricks_cluster" "mk-all-purpose1" {
+  cluster_name            = "testcluster"
+  spark_version           = data.databricks_spark_version.latest_lts.id #"12.2 LTS (includes Apache Spark 3.3.2, Scala 2.12)"
+  node_type_id            = "Standard_DS3_v2"
+  autotermination_minutes = 10   
+  num_workers = 1  
+}
+
+
 data "databricks_cluster" "my_cluster" {
   cluster_name = databricks_cluster.mk-all-purpose.cluster_name #var.cluster_name
   } 
