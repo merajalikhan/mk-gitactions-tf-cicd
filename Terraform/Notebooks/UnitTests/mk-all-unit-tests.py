@@ -16,7 +16,7 @@ def tableExists(tableName, dbName):
     else:
       print(f"Table '{tableName}' does not exist in database '{dbName}'.")   
     return  returnValue
-  except Exception e:
+  except Exception as e:
     exit('ERROR: Failed with error  :  {} '.format(e))
 
 
@@ -29,7 +29,7 @@ def columnExists(dataFrame, tableName, columnName):
     else:
       print(f"Column '{columnName}' does not exist in table '{tableName}'.")   
       return False
-  except Exception e:
+  except Exception as e:
     exit('ERROR: Failed with error  :  {} '.format(e))
 
 def numRowsInColumnForValue(dataFrame, tableName, columnName, columnValue):
@@ -38,7 +38,7 @@ def numRowsInColumnForValue(dataFrame, tableName, columnName, columnValue):
     numRows = df.count()
     print(f"There are {numRows} rows in '{tableName}' where '{columnName}' equals '{columnValue}'.")
     return numRows
-  except Exception e:
+  except Exception as e:
     exit('ERROR: Failed with error  :  {} '.format(e))
 
 
