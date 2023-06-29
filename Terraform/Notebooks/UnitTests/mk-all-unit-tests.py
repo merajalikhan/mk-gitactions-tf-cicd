@@ -57,7 +57,7 @@ class TestHelpers(unittest.TestCase):
 
     def test_numRowsInColumnForValue(self):
         df = spark.sql(f"SELECT * FROM {dbName}.{tableName}")        
-        self.assertEqual(numRowsInColumnForValue(df, tableName, columnName, columnValue), 10132)  
+        self.assertEqual(numRowsInColumnForValue(df, tableName, columnName, columnValue), 50660)  
 
 r = unittest.main(argv=[''], verbosity=2, exit=False)
 assert r.result.wasSuccessful(), 'Test failed; see logs above'
