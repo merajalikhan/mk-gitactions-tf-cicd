@@ -20,4 +20,11 @@ output "cluster_id" {
 }
 
 
+resource "databricks_cluster" "mk-all-purpose1" {
+  cluster_name            = "test cluster"
+  spark_version           = data.databricks_spark_version.latest_lts.id #"12.2 LTS (includes Apache Spark 3.3.2, Scala 2.12)"
+  node_type_id            = "Standard_DS3_v2"
+  autotermination_minutes = 20   
+  num_workers = 1  
+}
  
